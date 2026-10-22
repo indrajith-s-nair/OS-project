@@ -8,7 +8,7 @@ import { SPEEDS, type StepPlayer } from '@/hooks/use-step-player'
 import { cn } from '@/lib/utils'
 
 const secondaryButton =
-  'h-9 border-slate-700 bg-black px-3 text-slate-200 hover:bg-neutral-800 hover:text-slate-100 dark:border-slate-700 dark:bg-black dark:hover:bg-neutral-800'
+  'h-9 border-neutral-300 bg-white px-3 text-neutral-800 hover:bg-neutral-100 hover:text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-neutral-200 dark:hover:bg-neutral-900 dark:hover:text-neutral-100'
 
 interface ControlBarProps {
   children: ReactNode
@@ -18,7 +18,7 @@ interface ControlBarProps {
 
 export function ControlBar({ children, player, disabled }: ControlBarProps) {
   return (
-    <div className="flex flex-wrap items-center gap-3 rounded-xl border border-slate-800 bg-neutral-950 p-3 sm:p-4">
+    <div className="flex flex-wrap items-center gap-3 rounded-xl border border-neutral-200 bg-white p-3 sm:p-4 dark:border-neutral-900 dark:bg-neutral-950">
       {children}
 
       <Button
@@ -53,7 +53,7 @@ export function ControlBar({ children, player, disabled }: ControlBarProps) {
       <div
         role="group"
         aria-label="Playback speed"
-        className="flex h-9 items-center gap-0.5 rounded-lg border border-slate-700 bg-black p-0.5"
+        className="flex h-9 items-center gap-0.5 rounded-lg border border-neutral-300 bg-neutral-100 p-0.5 dark:border-neutral-800 dark:bg-black"
       >
         {SPEEDS.map((speed) => (
           <button
@@ -64,8 +64,8 @@ export function ControlBar({ children, player, disabled }: ControlBarProps) {
             className={cn(
               'h-full rounded-md px-2.5 font-mono text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500',
               player.speed === speed
-                ? 'bg-neutral-800 text-slate-100'
-                : 'text-slate-400 hover:text-slate-200',
+                ? 'bg-white text-neutral-900 shadow-xs dark:bg-neutral-800 dark:text-neutral-100'
+                : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200',
             )}
           >
             {speed}x

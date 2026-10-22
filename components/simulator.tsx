@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Moon, Sun } from 'lucide-react'
 
 import { AllocationView } from '@/components/sim/allocation-view'
 import { PagingView } from '@/components/sim/paging-view'
@@ -89,37 +90,67 @@ function AlgorithmPanel({ id }: { id: AlgorithmId }) {
 
 export function Simulator() {
   const [activeId, setActiveId] = useState<AlgorithmId>('first-fit')
+  const [isDark, setIsDark] = useState(true)
   const active = ALGORITHMS.find((a) => a.id === activeId) ?? ALGORITHMS[0]
 
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [isDark])
+
   return (
-    <div className="min-h-dvh bg-black text-slate-100">
-      <header className="sticky top-0 z-20 border-b border-slate-800 bg-black/90 backdrop-blur">
-        <nav aria-label="Algorithms" className="mx-auto max-w-7xl px-4 py-3 sm:px-6">
-          <div role="tablist" aria-label="Memory management algorithms" className="flex flex-wrap gap-1.5">
-            {ALGORITHMS.map((algorithm) => {
-              const selected = algorithm.id === activeId
-              return (
-                <button
-                  key={algorithm.id}
-                  id={`tab-${algorithm.id}`}
-                  type="button"
-                  role="tab"
-                  aria-selected={selected}
-                  aria-controls={`panel-${algorithm.id}`}
-                  onClick={() => setActiveId(algorithm.id)}
-                  className={cn(
-                    'rounded-lg px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500',
-                    selected
-                      ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
-                      : 'text-slate-400 hover:bg-neutral-950 hover:text-slate-100',
-                  )}
-                >
-                  {algorithm.label}
-                </button>
-              )
-            })}
-          </div>
-        </nav>
+    <div
+      className={cn(
+        'min-h-dvh bg-neutral-50 text-neutral-900 transition-colors duration-200 dark:bg-black dark:text-neutral-200',
+        isDark && 'dark',
+      )}
+    >
+      <header className="sticky top-0 z-20 border-b border-neutral-200 bg-white/90 backdrop-blur transition-colors dark:border-neutral-900 dark:bg-black/90">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+          <nav aria-label="Algorithms" className="min-w-0 flex-1">
+            <div role="tablist" aria-label="Memory management algorithms" className="flex flex-wrap gap-1.5">
+              {ALGORITHMS.map((algorithm) => {
+                const selected = algorithm.id === activeId
+                return (
+                  <button
+                    key={algorithm.id}
+                    id={`tab-${algorithm.id}`}
+                    type="button"
+                    role="tab"
+                    aria-selected={selected}
+                    aria-controls={`panel-${algorithm.id}`}
+                    onClick={() => setActiveId(algorithm.id)}
+                    className={cn(
+                      'rounded-lg px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500',
+                      selected
+                        ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                        : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-neutral-100',
+                    )}
+                  >
+                    {algorithm.label}
+                  </button>
+                )
+              })}
+            </div>
+          </nav>
+
+          <button
+            type="button"
+            onClick={() => setIsDark((prev) => !prev)}
+            aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-600 shadow-xs transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-neutral-100"
+          >
+            {isDark ? (
+              <Sun className="size-4.5 transition-transform hover:rotate-45" aria-hidden="true" />
+            ) : (
+              <Moon className="size-4.5 transition-transform hover:-rotate-12" aria-hidden="true" />
+            )}
+          </button>
+        </div>
       </header>
 
       <main
@@ -129,10 +160,12 @@ export function Simulator() {
         className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-6 sm:px-6 sm:py-8"
       >
         <div className="flex flex-col gap-1.5">
-          <h1 className="text-balance text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">
+          <h1 className="text-balance text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl">
             {active.title}
           </h1>
-          <p className="text-pretty text-sm leading-relaxed text-slate-400 sm:text-base">{active.description}</p>
+          <p className="text-pretty text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 sm:text-base">
+            {active.description}
+          </p>
         </div>
         <AlgorithmPanel key={active.id} id={active.id} />
       </main>

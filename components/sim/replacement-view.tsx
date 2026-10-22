@@ -76,9 +76,9 @@ function ReplacementStage({ step, policy }: { step: ReplacementStep; policy: Rep
       <Conveyor reference={step.reference} step={step} />
       <Frames step={step} policy={policy} />
       <dl className="grid grid-cols-3 gap-3 sm:mx-auto sm:w-full sm:max-w-md">
-        <Counter label="Hits" value={step.hits} className="border-emerald-500/50 text-emerald-300" />
-        <Counter label="Faults" value={step.faults} className="border-rose-500/50 text-rose-300" />
-        <Counter label="Hit Rate %" value={hitRate} className="border-slate-700 text-slate-100" />
+        <Counter label="Hits" value={step.hits} className="border-emerald-500/50 bg-emerald-50/50 text-emerald-800 dark:border-emerald-500/50 dark:bg-black dark:text-emerald-300" />
+        <Counter label="Faults" value={step.faults} className="border-rose-500/50 bg-rose-50/50 text-rose-800 dark:border-rose-500/50 dark:bg-black dark:text-rose-300" />
+        <Counter label="Hit Rate %" value={hitRate} className="border-neutral-300 bg-white text-neutral-900 dark:border-neutral-800 dark:bg-black dark:text-neutral-100" />
       </dl>
     </div>
   )
@@ -87,7 +87,7 @@ function ReplacementStage({ step, policy }: { step: ReplacementStep; policy: Rep
 function Conveyor({ reference, step }: { reference: number[]; step: ReplacementStep }) {
   return (
     <div className="flex flex-col gap-3">
-      <h3 className="text-xs font-medium uppercase tracking-wider text-slate-400">Reference String</h3>
+      <h3 className="text-xs font-medium uppercase tracking-wider text-neutral-600 dark:text-neutral-500">Reference String</h3>
       <ol className="flex flex-wrap gap-2 pt-1" aria-label="Reference string">
         {reference.map((page, i) => {
           const active = i === step.current
@@ -102,16 +102,16 @@ function Conveyor({ reference, step }: { reference: number[]; step: ReplacementS
               aria-current={active ? 'step' : undefined}
               className={cn(
                 'flex size-11 flex-col items-center justify-center rounded-lg border-2 transition-colors duration-300',
-                'border-slate-700 bg-black text-slate-300',
-                result === 'hit' && 'border-emerald-500 bg-emerald-950/80 text-emerald-300',
-                result === 'fault' && 'border-rose-500 bg-rose-950/80 text-rose-300',
-                active && 'ring-2 ring-amber-400 bg-neutral-800 text-amber-300',
-                inTrace && 'border-amber-400/50 bg-amber-400/10',
-                traceTarget && 'border-amber-300 bg-amber-400/25 text-amber-200',
+                'border-neutral-300 bg-white text-neutral-700 dark:border-neutral-800 dark:bg-black dark:text-neutral-300',
+                result === 'hit' && 'border-emerald-500 bg-emerald-50 text-emerald-900 dark:bg-emerald-950/80 dark:text-emerald-300',
+                result === 'fault' && 'border-rose-500 bg-rose-50 text-rose-900 dark:bg-rose-950/80 dark:text-rose-300',
+                active && 'ring-2 ring-amber-400 bg-amber-50 text-amber-900 dark:bg-neutral-800 dark:text-amber-300',
+                inTrace && 'border-amber-400/50 bg-amber-50 dark:bg-amber-400/10',
+                traceTarget && 'border-amber-300 bg-amber-100 text-amber-900 dark:bg-amber-400/25 dark:text-amber-200',
               )}
             >
               <span className="font-mono text-sm font-semibold leading-none">{page}</span>
-              <span className="mt-1 font-mono text-[9px] leading-none text-slate-500">{i + 1}</span>
+              <span className="mt-1 font-mono text-[9px] leading-none text-neutral-500">{i + 1}</span>
             </motion.li>
           )
         })}
@@ -123,7 +123,7 @@ function Conveyor({ reference, step }: { reference: number[]; step: ReplacementS
 function Frames({ step, policy }: { step: ReplacementStep; policy: ReplacementPolicy }) {
   return (
     <div className="flex flex-col gap-3">
-      <h3 className="text-xs font-medium uppercase tracking-wider text-slate-400">Frames</h3>
+      <h3 className="text-xs font-medium uppercase tracking-wider text-neutral-600 dark:text-neutral-500">Frames</h3>
       <LayoutGroup id={`frames-${policy}`}>
         <ul className="flex flex-wrap justify-center gap-4" aria-label="Memory frames">
           {step.frames.map((page, f) => {
@@ -150,11 +150,11 @@ function Frames({ step, policy }: { step: ReplacementStep; policy: ReplacementPo
                   className={cn(
                     'relative flex h-24 w-full items-center justify-center overflow-hidden rounded-xl border-2 transition-colors duration-300',
                     page === null
-                      ? 'border-dashed border-slate-700 bg-neutral-900 text-slate-400'
-                      : 'border-indigo-500 bg-indigo-950/80 text-indigo-200',
-                    tone === 'hit' && 'border-emerald-500 bg-emerald-950/80 text-emerald-300 shadow-lg shadow-emerald-500/20',
-                    tone === 'fault' && 'border-rose-500 bg-rose-950/80 text-rose-300 shadow-lg shadow-rose-500/20',
-                    tone === 'victim' && 'animate-pulse border-rose-500 bg-rose-950/80 text-rose-300',
+                      ? 'border-dashed border-neutral-300 bg-white text-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400'
+                      : 'border-indigo-500 bg-indigo-50 text-indigo-900 dark:bg-indigo-950/80 dark:text-indigo-200',
+                    tone === 'hit' && 'border-emerald-500 bg-emerald-50 text-emerald-900 shadow-lg shadow-emerald-500/20 dark:bg-emerald-950/80 dark:text-emerald-300',
+                    tone === 'fault' && 'border-rose-500 bg-rose-50 text-rose-900 shadow-lg shadow-rose-500/20 dark:bg-rose-950/80 dark:text-rose-300',
+                    tone === 'victim' && 'animate-pulse border-rose-500 bg-rose-50 text-rose-900 dark:bg-rose-950/80 dark:text-rose-300',
                   )}
                 >
                   <AnimatePresence mode="popLayout" initial={false}>
@@ -177,16 +177,16 @@ function Frames({ step, policy }: { step: ReplacementStep; policy: ReplacementPo
                   </AnimatePresence>
                 </div>
 
-                <span className="text-xs text-slate-400">{`Frame ${f}`}</span>
+                <span className="text-xs text-neutral-600 dark:text-neutral-400">{`Frame ${f}`}</span>
 
                 {policy === 'lru' ? (
-                  <span className="text-center text-[11px] text-slate-400">
+                  <span className="text-center text-[11px] text-neutral-600 dark:text-neutral-400">
                     {'Last Used: '}
                     <motion.span
                       key={`${step.ages[f]}`}
                       initial={{ opacity: 0.3 }}
                       animate={{ opacity: 1 }}
-                      className={cn('font-mono', step.ages[f] === 0 ? 'text-emerald-300' : 'text-slate-200')}
+                      className={cn('font-mono', step.ages[f] === 0 ? 'text-emerald-600 dark:text-emerald-300' : 'text-neutral-900 dark:text-neutral-200')}
                     >
                       {step.ages[f] === null ? '—' : `${step.ages[f]} steps ago`}
                     </motion.span>
@@ -202,7 +202,7 @@ function Frames({ step, policy }: { step: ReplacementStep; policy: ReplacementPo
                           initial={{ opacity: 0, y: -4 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0 }}
-                          className="rounded-full border border-amber-400/50 bg-amber-400/10 px-2 py-0.5 text-center text-[11px] text-amber-300"
+                          className="rounded-full border border-amber-400/50 bg-amber-50 px-2 py-0.5 text-center text-[11px] text-amber-800 dark:bg-amber-400/10 dark:text-amber-300"
                         >
                           {ahead.steps === null ? 'Never used again (∞)' : `Next used in +${ahead.steps} steps`}
                         </motion.span>
@@ -221,8 +221,8 @@ function Frames({ step, policy }: { step: ReplacementStep; policy: ReplacementPo
 
 function Counter({ label, value, className }: { label: string; value: number | string; className: string }) {
   return (
-    <div className={cn('flex flex-col items-center gap-1 rounded-lg border bg-black px-3 py-2.5', className)}>
-      <dt className="text-[11px] uppercase tracking-wider text-slate-400">{label}</dt>
+    <div className={cn('flex flex-col items-center gap-1 rounded-lg border px-3 py-2.5', className)}>
+      <dt className="text-[11px] uppercase tracking-wider text-neutral-600 dark:text-neutral-400">{label}</dt>
       <dd>
         <motion.span
           key={value}

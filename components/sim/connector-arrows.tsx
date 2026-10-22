@@ -94,7 +94,7 @@ export function ConnectorArrows({ containerRef, connections }: ConnectorArrowsPr
   return (
     <svg
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 hidden h-full w-full overflow-visible lg:block"
+      className="pointer-events-none absolute inset-0 hidden h-full w-full overflow-visible stroke-neutral-300 transition-colors lg:block dark:stroke-neutral-700"
     >
       <defs>
         {colors.map((color) => (
@@ -121,6 +121,7 @@ export function ConnectorArrows({ containerRef, connections }: ConnectorArrowsPr
             stroke={conn.color}
             strokeWidth={2}
             strokeLinecap="round"
+            className="stroke-neutral-300 dark:stroke-neutral-700"
             markerEnd={`url(#arrow-${conn.color.replace('#', '')})`}
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 1 }}

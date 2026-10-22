@@ -105,15 +105,15 @@ function PagingStage({ step }: { step: PagingStep }) {
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:items-center lg:gap-20">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-2">
-            <h3 className="text-xs font-medium uppercase tracking-wider text-slate-400">Logical Address</h3>
-            <p className="font-mono text-3xl font-semibold text-slate-100">{calc.logical}</p>
+            <h3 className="text-xs font-medium uppercase tracking-wider text-neutral-600 dark:text-neutral-500">Logical Address</h3>
+            <p className="font-mono text-3xl font-semibold text-neutral-900 dark:text-neutral-200">{calc.logical}</p>
           </div>
 
-          <div className="grid max-w-xs grid-cols-2 overflow-hidden rounded-lg border-2 border-slate-700">
+          <div className="grid max-w-xs grid-cols-2 overflow-hidden rounded-lg border-2 border-neutral-300 dark:border-neutral-800">
             <div
               className={cn(
-                'flex flex-col items-center gap-1 border-r-2 border-slate-700 p-3 transition-colors duration-300',
-                stage >= 1 ? 'bg-cyan-950/60 text-cyan-300' : 'bg-black text-slate-500',
+                'flex flex-col items-center gap-1 border-r-2 border-neutral-300 p-3 transition-colors duration-300 dark:border-neutral-800',
+                stage >= 1 ? 'bg-cyan-50 text-cyan-900 dark:bg-cyan-950/60 dark:text-cyan-300' : 'bg-white text-neutral-500 dark:bg-black',
               )}
             >
               <span className="text-[11px] uppercase tracking-wider opacity-80">Page Number (p)</span>
@@ -122,7 +122,7 @@ function PagingStage({ step }: { step: PagingStep }) {
             <div
               className={cn(
                 'flex flex-col items-center gap-1 p-3 transition-colors duration-300',
-                stage >= 1 ? 'bg-purple-950/60 text-purple-300' : 'bg-black text-slate-500',
+                stage >= 1 ? 'bg-purple-50 text-purple-900 dark:bg-purple-950/60 dark:text-purple-300' : 'bg-white text-neutral-500 dark:bg-black',
               )}
             >
               <span className="text-[11px] uppercase tracking-wider opacity-80">Offset (d)</span>
@@ -133,14 +133,14 @@ function PagingStage({ step }: { step: PagingStep }) {
           <div className="flex flex-col gap-2 font-mono text-sm">
             <AnimatePresence>
               {stage >= 1 ? (
-                <motion.p key="page" {...reveal} className="text-cyan-300">
+                <motion.p key="page" {...reveal} className="text-cyan-700 dark:text-cyan-300">
                   <span ref={pageCellRef} className="pr-2">
                     {`Page Number = Math.floor(${calc.logical} / ${calc.pageSize}) = ${calc.page}`}
                   </span>
                 </motion.p>
               ) : null}
               {stage >= 1 ? (
-                <motion.p key="offset" {...reveal} className="text-purple-300">
+                <motion.p key="offset" {...reveal} className="text-purple-700 dark:text-purple-300">
                   {`Offset = ${calc.logical} % ${calc.pageSize} = ${calc.offset}`}
                 </motion.p>
               ) : null}
@@ -148,7 +148,7 @@ function PagingStage({ step }: { step: PagingStep }) {
                 <motion.p
                   key="physical"
                   {...reveal}
-                  className="mt-2 rounded-lg border-2 border-emerald-500 bg-emerald-950/80 px-3 py-2 text-emerald-300"
+                  className="mt-2 rounded-lg border-2 border-emerald-500 bg-emerald-50 px-3 py-2 text-emerald-900 dark:bg-emerald-950/80 dark:text-emerald-300"
                 >
                   {`Physical Address = (${calc.frame} * ${calc.pageSize}) + ${calc.offset} = ${calc.physical}`}
                 </motion.p>
@@ -157,7 +157,7 @@ function PagingStage({ step }: { step: PagingStep }) {
                 <motion.p
                   key="invalid"
                   {...reveal}
-                  className="mt-2 rounded-lg border-2 border-rose-500 bg-rose-950/80 px-3 py-2 text-rose-300"
+                  className="mt-2 rounded-lg border-2 border-rose-500 bg-rose-50 px-3 py-2 text-rose-900 dark:bg-rose-950/80 dark:text-rose-300"
                 >
                   {`TRAP: Page ${calc.page} is not in the page table`}
                 </motion.p>
@@ -167,7 +167,7 @@ function PagingStage({ step }: { step: PagingStep }) {
         </div>
 
         <div className="flex flex-col gap-2">
-          <h3 className="text-xs font-medium uppercase tracking-wider text-slate-400">Page Table</h3>
+          <h3 className="text-xs font-medium uppercase tracking-wider text-neutral-600 dark:text-neutral-500">Page Table</h3>
           <ol className="flex w-full flex-col gap-1.5 lg:w-48" aria-label="Page table">
             {PAGE_TABLE.map((frame, page) => {
               const active = page === calc.page
@@ -180,10 +180,10 @@ function PagingStage({ step }: { step: PagingStep }) {
                   className={cn(
                     'flex items-center justify-between rounded-md border-2 px-3 py-2 font-mono text-sm transition-colors duration-300',
                     active && stage >= 3
-                      ? 'border-amber-400 bg-amber-400/10 text-amber-300'
+                      ? 'border-amber-400 bg-amber-50 text-amber-900 dark:bg-amber-400/10 dark:text-amber-300'
                       : active && stage >= 2
-                        ? 'border-cyan-400/70 bg-neutral-800 text-slate-200'
-                        : 'border-slate-800 bg-black text-slate-400',
+                        ? 'border-cyan-400/70 bg-cyan-50 text-cyan-900 dark:bg-neutral-800 dark:text-slate-200'
+                        : 'border-neutral-200 bg-white text-neutral-600 dark:border-neutral-800 dark:bg-black dark:text-neutral-400',
                   )}
                 >
                   <span>{`Page ${page}`}</span>
@@ -201,7 +201,7 @@ function PagingStage({ step }: { step: PagingStep }) {
         </div>
 
         <div className="flex flex-col gap-2">
-          <h3 className="text-xs font-medium uppercase tracking-wider text-slate-400">Physical Memory</h3>
+          <h3 className="text-xs font-medium uppercase tracking-wider text-neutral-600 dark:text-neutral-500">Physical Memory</h3>
           <ol className="flex w-full flex-col gap-1 lg:w-60" aria-label="Physical memory frames">
             {Array.from({ length: PHYSICAL_FRAMES }, (_, frame) => {
               const target = frame === calc.frame && stage >= 4
@@ -216,10 +216,10 @@ function PagingStage({ step }: { step: PagingStep }) {
                   className={cn(
                     'flex flex-col gap-1.5 rounded-md border-2 px-3 py-1.5 text-xs transition-colors duration-300',
                     target
-                      ? 'border-emerald-500 bg-emerald-950/80 text-emerald-300'
+                      ? 'border-emerald-500 bg-emerald-50 text-emerald-900 dark:bg-emerald-950/80 dark:text-emerald-300'
                       : page !== -1
-                        ? 'border-indigo-500/60 bg-indigo-950/50 text-indigo-200'
-                        : 'border-dashed border-slate-700 bg-neutral-900 text-slate-400',
+                        ? 'border-indigo-500/60 bg-indigo-50 text-indigo-900 dark:bg-indigo-950/50 dark:text-indigo-200'
+                        : 'border-dashed border-neutral-300 bg-white text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400',
                   )}
                 >
                   <div className="flex items-center justify-between gap-2">
@@ -236,7 +236,7 @@ function PagingStage({ step }: { step: PagingStep }) {
                             'flex h-5 flex-1 items-center justify-center rounded-sm font-mono text-[10px] transition-colors duration-300',
                             stage >= 5 && byte === calc.offset
                               ? 'bg-purple-500 text-white'
-                              : 'bg-emerald-900/60 text-emerald-300/70',
+                              : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300/70',
                           )}
                         >
                           {start + byte}

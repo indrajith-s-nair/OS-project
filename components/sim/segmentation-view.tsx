@@ -115,16 +115,16 @@ function SegmentationStage({ step }: { step: SegmentationStep }) {
       <div className="grid gap-10 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:gap-14 lg:pl-10">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-2">
-            <h3 className="text-xs font-medium uppercase tracking-wider text-slate-400">Logical Address</h3>
-            <div className="grid w-56 grid-cols-2 overflow-hidden rounded-lg border-2 border-slate-700">
+            <h3 className="text-xs font-medium uppercase tracking-wider text-neutral-600 dark:text-neutral-500">Logical Address</h3>
+            <div className="grid w-56 grid-cols-2 overflow-hidden rounded-lg border-2 border-neutral-300 dark:border-neutral-800">
               <div
                 ref={segmentCellRef}
-                className="flex flex-col items-center gap-1 border-r-2 border-slate-700 bg-cyan-950/60 p-2.5 text-cyan-300"
+                className="flex flex-col items-center gap-1 border-r-2 border-neutral-300 bg-cyan-50 p-2.5 text-cyan-900 dark:border-neutral-800 dark:bg-cyan-950/60 dark:text-cyan-300"
               >
                 <span className="text-[11px] uppercase tracking-wider opacity-80">Segment (s)</span>
                 <span className="font-mono text-xl font-semibold">{calc.segment}</span>
               </div>
-              <div className="flex flex-col items-center gap-1 bg-purple-950/60 p-2.5 text-purple-300">
+              <div className="flex flex-col items-center gap-1 bg-purple-50 p-2.5 text-purple-900 dark:bg-purple-950/60 dark:text-purple-300">
                 <span className="text-[11px] uppercase tracking-wider opacity-80">Offset (d)</span>
                 <span className="font-mono text-xl font-semibold">{calc.offset}</span>
               </div>
@@ -132,9 +132,9 @@ function SegmentationStage({ step }: { step: SegmentationStep }) {
           </div>
 
           <div className="flex flex-col gap-2">
-            <h3 className="text-xs font-medium uppercase tracking-wider text-slate-400">Segment Table</h3>
+            <h3 className="text-xs font-medium uppercase tracking-wider text-neutral-600 dark:text-neutral-500">Segment Table</h3>
             <ol className="flex w-full flex-col gap-1.5 sm:w-72" aria-label="Segment table">
-              <li className="grid grid-cols-3 px-3 text-[11px] uppercase tracking-wider text-slate-500">
+              <li className="grid grid-cols-3 px-3 text-[11px] uppercase tracking-wider text-neutral-500">
                 <span>Segment</span>
                 <span>Base</span>
                 <span>Limit</span>
@@ -151,15 +151,15 @@ function SegmentationStage({ step }: { step: SegmentationStep }) {
                     className={cn(
                       'grid grid-cols-3 rounded-md border-2 px-3 py-2 font-mono text-sm transition-colors duration-300',
                       active
-                        ? 'border-amber-400 bg-amber-400/10 text-slate-200'
+                        ? 'border-amber-400 bg-amber-50 text-amber-900 dark:bg-amber-400/10 dark:text-neutral-200'
                         : activeTrap
-                          ? 'border-rose-500 bg-rose-950/60 text-rose-300'
-                          : 'border-slate-800 bg-black text-slate-400',
+                          ? 'border-rose-500 bg-rose-50 text-rose-900 dark:bg-rose-950/60 dark:text-rose-300'
+                          : 'border-neutral-200 bg-white text-neutral-600 dark:border-neutral-800 dark:bg-black dark:text-neutral-400',
                     )}
                   >
                     <span>{i}</span>
-                    <span className={cn(active && 'font-semibold text-amber-300')}>{entry.base}</span>
-                    <span className={cn(active && 'font-semibold text-amber-300')}>{entry.limit}</span>
+                    <span className={cn(active && 'font-semibold text-amber-700 dark:text-amber-300')}>{entry.base}</span>
+                    <span className={cn(active && 'font-semibold text-amber-700 dark:text-amber-300')}>{entry.limit}</span>
                   </li>
                 )
               })}
@@ -168,14 +168,14 @@ function SegmentationStage({ step }: { step: SegmentationStep }) {
         </div>
 
         <div className="flex min-w-0 flex-col gap-3">
-          <h3 className="text-xs font-medium uppercase tracking-wider text-slate-400">Comparator</h3>
-          <div className="flex min-h-48 flex-col gap-3 rounded-xl border border-dashed border-slate-700 bg-black/60 p-4">
+          <h3 className="text-xs font-medium uppercase tracking-wider text-neutral-600 dark:text-neutral-500">Comparator</h3>
+          <div className="flex min-h-48 flex-col gap-3 rounded-xl border border-dashed border-neutral-300 bg-neutral-100/70 p-4 dark:border-neutral-800 dark:bg-black/60">
             <AnimatePresence>
               {stage >= 2 && calc.limit !== null ? (
                 <motion.div
                   key="question"
                   {...pop}
-                  className="rounded-lg border-2 border-slate-700 bg-neutral-950 px-3 py-2 font-mono text-sm text-slate-200"
+                  className="rounded-lg border-2 border-neutral-300 bg-white px-3 py-2 font-mono text-sm text-neutral-800 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200"
                 >
                   {`Offset (${calc.offset}) < Limit (${calc.limit})?`}
                 </motion.div>
@@ -185,7 +185,7 @@ function SegmentationStage({ step }: { step: SegmentationStep }) {
                 <motion.div
                   key="legal"
                   {...pop}
-                  className="flex items-center gap-2 rounded-lg border-2 border-emerald-500 bg-emerald-950/80 px-3 py-2 font-mono text-sm text-emerald-300"
+                  className="flex items-center gap-2 rounded-lg border-2 border-emerald-500 bg-emerald-50 px-3 py-2 font-mono text-sm text-emerald-900 dark:bg-emerald-950/80 dark:text-emerald-300"
                 >
                   <CircleCheck className="size-4 shrink-0" aria-hidden="true" />
                   {`${calc.offset} < ${calc.limit} (Legal access)`}
@@ -206,7 +206,7 @@ function SegmentationStage({ step }: { step: SegmentationStep }) {
                     ],
                   }}
                   transition={{ boxShadow: { duration: 1.2, repeat: Infinity }, default: { duration: 0.3 } }}
-                  className="flex items-start gap-2 rounded-lg border-2 border-rose-500 bg-rose-950/80 px-3 py-3 text-sm text-rose-300"
+                  className="flex items-start gap-2 rounded-lg border-2 border-rose-500 bg-rose-50 px-3 py-3 text-sm text-rose-900 dark:bg-rose-950/80 dark:text-rose-300"
                 >
                   <OctagonAlert className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
                   <div className="flex flex-col gap-1">
@@ -225,7 +225,7 @@ function SegmentationStage({ step }: { step: SegmentationStep }) {
                   key="math"
                   ref={mathRef}
                   {...pop}
-                  className="rounded-lg border-2 border-indigo-500 bg-indigo-950/80 px-3 py-2 font-mono text-sm text-indigo-200"
+                  className="rounded-lg border-2 border-indigo-500 bg-indigo-50 px-3 py-2 font-mono text-sm text-indigo-900 dark:bg-indigo-950/80 dark:text-indigo-200"
                 >
                   {`Physical Address = ${calc.base} + ${calc.offset} = ${calc.physical}`}
                 </motion.div>
@@ -235,13 +235,13 @@ function SegmentationStage({ step }: { step: SegmentationStep }) {
         </div>
 
         <div className="flex flex-col gap-2">
-          <h3 className="text-xs font-medium uppercase tracking-wider text-slate-400">Physical Memory</h3>
+          <h3 className="text-xs font-medium uppercase tracking-wider text-neutral-600 dark:text-neutral-500">Physical Memory</h3>
           <div className="flex gap-3">
-            <div className="flex h-[340px] flex-col justify-between font-mono text-[10px] text-slate-500">
+            <div className="flex h-[340px] flex-col justify-between font-mono text-[10px] text-neutral-500">
               <span>0</span>
               <span>{PHYSICAL_MEMORY_SIZE}</span>
             </div>
-            <div className="relative h-[340px] w-24 rounded-md border-2 border-slate-700 bg-black">
+            <div className="relative h-[340px] w-24 rounded-md border-2 border-neutral-300 bg-white dark:border-neutral-700 dark:bg-black">
               {SEGMENT_TABLE.map((entry, i) => {
                 const active = i === calc.segment && stage >= 1 && !trap
                 return (
@@ -250,10 +250,10 @@ function SegmentationStage({ step }: { step: SegmentationStep }) {
                     className={cn(
                       'absolute inset-x-0 border-y-2 transition-colors duration-300',
                       active && stage >= 5
-                        ? 'border-emerald-500 bg-emerald-950/80'
+                        ? 'border-emerald-500 bg-emerald-100/90 dark:bg-emerald-950/80'
                         : active
-                          ? 'border-amber-400 bg-amber-400/15'
-                          : 'border-indigo-500 bg-indigo-950/80',
+                          ? 'border-amber-400 bg-amber-100/80 dark:bg-amber-400/15'
+                          : 'border-indigo-500 bg-indigo-100/80 dark:bg-indigo-950/80',
                     )}
                     style={{
                       top: `${(entry.base / PHYSICAL_MEMORY_SIZE) * 100}%`,
@@ -267,7 +267,7 @@ function SegmentationStage({ step }: { step: SegmentationStep }) {
                   ref={markerRef}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="absolute inset-x-0 h-0.5 bg-emerald-300"
+                  className="absolute inset-x-0 h-0.5 bg-emerald-600 dark:bg-emerald-300"
                   style={{ top: `${(calc.physical / PHYSICAL_MEMORY_SIZE) * 100}%` }}
                 />
               ) : null}
@@ -276,7 +276,7 @@ function SegmentationStage({ step }: { step: SegmentationStep }) {
               {SEGMENT_TABLE.map((entry, i) => (
                 <span
                   key={i}
-                  className="absolute left-0 text-slate-400"
+                  className="absolute left-0 text-neutral-600 dark:text-neutral-400"
                   style={{ top: `${(entry.base / PHYSICAL_MEMORY_SIZE) * 100}%` }}
                 >
                   {`Seg ${i}: ${entry.base}–${entry.base + entry.limit}`}
@@ -286,7 +286,7 @@ function SegmentationStage({ step }: { step: SegmentationStep }) {
                 <motion.span
                   initial={{ opacity: 0, x: -4 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="absolute left-0 font-semibold text-emerald-300"
+                  className="absolute left-0 font-semibold text-emerald-600 dark:text-emerald-300"
                   style={{ top: `calc(${(calc.physical / PHYSICAL_MEMORY_SIZE) * 100}% + 10px)` }}
                 >
                   {`-> ${calc.physical}`}

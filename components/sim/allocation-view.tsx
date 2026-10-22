@@ -25,17 +25,17 @@ const MIN_BLOCK_HEIGHT = 30
 const spring = { type: 'spring', stiffness: 260, damping: 28 } as const
 
 const segmentToneClasses: Record<SegmentTone, string> = {
-  reject: 'border-rose-500 bg-rose-950/80 text-rose-300',
-  fit: 'border-emerald-500 bg-emerald-950/80 text-emerald-300',
-  candidate: 'border-amber-400 text-amber-300',
+  reject: 'border-rose-500 bg-rose-50 text-rose-900 dark:bg-rose-950/80 dark:text-rose-300',
+  fit: 'border-emerald-500 bg-emerald-50 text-emerald-900 dark:bg-emerald-950/80 dark:text-emerald-300',
+  candidate: 'border-amber-400 text-amber-800 dark:text-amber-300',
   scan: 'border-amber-400/60',
 }
 
 const processStatusClasses: Record<QueuedProcess['status'], string> = {
-  waiting: 'border-slate-700 bg-neutral-950 text-slate-300',
-  active: 'border-emerald-500 bg-emerald-950/80 text-emerald-300',
-  allocated: 'border-indigo-500 bg-indigo-950/80 text-indigo-200',
-  rejected: 'border-rose-500 bg-rose-950/80 text-rose-300',
+  waiting: 'border-neutral-300 bg-white text-neutral-700 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300',
+  active: 'border-emerald-500 bg-emerald-50 text-emerald-900 dark:bg-emerald-950/80 dark:text-emerald-300',
+  allocated: 'border-indigo-500 bg-indigo-50 text-indigo-900 dark:bg-indigo-950/80 dark:text-indigo-200',
+  rejected: 'border-rose-500 bg-rose-50 text-rose-900 dark:bg-rose-950/80 dark:text-rose-300',
 }
 
 export function AllocationView({ strategy }: { strategy: FitStrategy }) {
@@ -96,7 +96,7 @@ function AllocationStage({ step, strategy }: { step: AllocationStep; strategy: F
     <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-center lg:gap-16">
       <div className="flex min-w-0 flex-col gap-3">
         <div className="flex min-h-7 flex-wrap items-center justify-between gap-2 pl-8">
-          <h3 className="text-xs font-medium uppercase tracking-wider text-slate-400">Memory</h3>
+          <h3 className="text-xs font-medium uppercase tracking-wider text-neutral-600 dark:text-neutral-500">Memory</h3>
           {strategy !== 'first' ? (
             <CandidateBadge
               strategy={strategy}
@@ -133,8 +133,8 @@ function AllocationStage({ step, strategy }: { step: AllocationStep; strategy: F
                       className={cn(
                         'flex h-full w-full min-w-0 items-center justify-between gap-3 rounded-md border-2 px-3 text-xs transition-colors duration-300 sm:w-80',
                         isAllocated
-                          ? 'border-indigo-500 bg-indigo-950/80 text-indigo-200'
-                          : 'border-dashed border-slate-700 bg-neutral-900 text-slate-400',
+                          ? 'border-indigo-500 bg-indigo-50 text-indigo-900 dark:border-indigo-500 dark:bg-indigo-950/80 dark:text-indigo-200'
+                          : 'border-dashed border-neutral-300 bg-white text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400',
                         tone && segmentToneClasses[tone],
                       )}
                     >
@@ -154,7 +154,7 @@ function AllocationStage({ step, strategy }: { step: AllocationStep; strategy: F
       </div>
 
       <div className="flex flex-col gap-3 lg:w-60">
-        <h3 className="flex min-h-7 items-center text-xs font-medium uppercase tracking-wider text-slate-400">
+        <h3 className="flex min-h-7 items-center text-xs font-medium uppercase tracking-wider text-neutral-600 dark:text-neutral-500">
           Process Queue
         </h3>
         <ul className="flex flex-wrap gap-2 lg:flex-col" aria-label="Process queue">
@@ -195,7 +195,7 @@ function CandidateBadge({
       initial={candidate ? { scale: 1.15, boxShadow: '0 0 0 6px rgba(251, 191, 36, 0.35)' } : false}
       animate={{ scale: 1, boxShadow: '0 0 0 0px rgba(251, 191, 36, 0)' }}
       transition={{ duration: 0.6 }}
-      className="rounded-full border border-amber-400/50 bg-amber-400/10 px-2.5 py-1 text-xs text-amber-300"
+      className="rounded-full border border-amber-400/50 bg-amber-50 px-2.5 py-1 text-xs text-amber-800 dark:bg-amber-400/10 dark:text-amber-300"
     >
       {strategy === 'best' ? 'Current Best Hole: ' : 'Current Largest Hole: '}
       <span className="font-mono">{candidate ? `${candidate.label} (${candidate.size}KB)` : 'None'}</span>
